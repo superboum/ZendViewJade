@@ -149,7 +149,7 @@ class Zend_View_Jade implements Zend_View_Interface {
 
     file_put_contents($this->_template_jade_tmp, $jade_template_content);
 
-    system("{$this->_compiler_path} -P < {$this->_template_jade_tmp} > {$this->_template_cache_html} 2>&1");
+    system("{$this->_compiler_path} -P -p {$this->_jade_template} < {$this->_template_jade_tmp} > {$this->_template_cache_html} 2>&1");
   }
 
   /**
