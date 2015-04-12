@@ -7,6 +7,7 @@ class Zend_View_Jade implements Zend_View_Interface {
   protected $_jade_template;
   protected $_jade_template_basename;
   protected $_cache_dir;
+  protected $_data;
   protected $_data_cache;
   protected $_data_cache_md5;
   protected $_template_jade_tmp;
@@ -149,7 +150,8 @@ class Zend_View_Jade implements Zend_View_Interface {
 
     file_put_contents($this->_template_jade_tmp, $jade_template_content);
 
-    system("{$this->_compiler_path} -P -p {$this->_jade_template} < {$this->_template_jade_tmp} > {$this->_template_cache_html} 2>&1");
+    error_log(file_get_contents($this->_data_cache));
+    system("{$this->_compiler_path} -P -p {$this->_jade_template} -O ".$this->_data_cache." < {$this->_template_jade_tmp} > {$this->_template_cache_html} 2>&1");
   }
 
   /**
@@ -173,10 +175,10 @@ class Zend_View_Jade implements Zend_View_Interface {
    */
   protected function _get_var_definitions() {
     $var_definitions = "";
-    $data = json_decode(file_get_contents($this->_data_cache),true); //decode json as an associate array
+    $this->_data = json_decode(file_get_contents($this->_data_cache),true); //decode json as an associate array
 
-    if(is_array($data) && count($data) > 0){
-      foreach($data as $var_name => $value){
+    if(is_array($this->_data) && count($this->_data) > 0){
+      foreach($this->_data as $var_name => $value){
         if(is_array($value)){
           $value = json_encode($value);
         }
