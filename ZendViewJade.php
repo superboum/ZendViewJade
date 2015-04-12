@@ -69,6 +69,7 @@ class Zend_View_Jade implements Zend_View_Interface {
   }
 
   public function navigation() {
+    error_log("Not yet implemented navigation() for jade layout");
   }
 
   /*********************************
