@@ -14,5 +14,5 @@ git clone https://github.com/superboum/ZendViewJade
 
 ```php
 require_once("ZendViewJade/ZendViewJade.php");
-$view = new ZendViewJade();
+$view = new Zend_View_Jade();
 ```
