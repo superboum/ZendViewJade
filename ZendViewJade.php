@@ -82,7 +82,11 @@ class Zend_View_Jade implements Zend_View_Interface {
       throw new \Exception("Security Error, try to execute a different program from Jade");
     }
     $json_data = json_encode($this->_params);
-    return system("{$this->_compiler_path} -P -p {$this->_jade_template} -O '".$json_data."' < {$this->_jade_template}");
+    $o = array();
+    $rv = 0;
+    exec("{$this->_compiler_path} -P -p {$this->_jade_template} -O '".$json_data."' < {$this->_jade_template}", $o, $rv);
+    error_log("INFO\nError code: ".$rv."\nTemplate: ".$this->_jade_template."\nData: ".$json_data);
+    return implode("\n",$o);
   }
 
   /**
