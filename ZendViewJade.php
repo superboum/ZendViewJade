@@ -81,10 +81,12 @@ class Zend_View_Jade implements Zend_View_Interface {
     if( basename($this->_compiler_path) !== 'jade'){ //provide protection against arbitary command execution
       throw new \Exception("Security Error, try to execute a different program from Jade");
     }
-    $json_data = json_encode($this->_params);
+    $json_data = str_replace('"', '\"', json_encode($this->_params));
     $o = array();
     $rv = 0;
-    exec("{$this->_compiler_path} -P -p {$this->_jade_template} -O '".$json_data."' < {$this->_jade_template}", $o, $rv);
+    $cmd = "{$this->_compiler_path} -P -p {$this->_jade_template} -O \"".$json_data."\" < {$this->_jade_template}";
+    error_log("CMD: ".$cmd);
+    exec($cmd, $o, $rv);
     error_log("INFO\nError code: ".$rv."\nTemplate: ".$this->_jade_template."\nData: ".$json_data);
     return implode("\n",$o);
   }
