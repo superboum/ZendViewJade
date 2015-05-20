@@ -89,7 +89,6 @@ class Zend_View_Jade implements Zend_View_Interface {
     $rv = 0;
     $cmd = "{$this->_compiler_path} -P -p {$this->_jade_template} -O \"".$tmpfname."\" < {$this->_jade_template}";
     exec($cmd, $o, $rv);
-    file_put_contents('cmd.bash',$cmd);
     error_log("INFO\nError code: ".$rv."\nTemplate: ".$this->_jade_template."\nTemp file: ".$tmpfname);
     return implode("\n",$o);
   }
