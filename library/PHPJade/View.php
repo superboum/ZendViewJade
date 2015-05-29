@@ -1,6 +1,6 @@
 <?php
 
-class Zend_View_Jade implements Zend_View_Interface {
+class PHPJade_View implements Zend_View_Interface {
   protected $_jade;
   protected $_params;
   protected $_compiler_path;
