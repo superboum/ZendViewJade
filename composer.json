@@ -1,6 +1,14 @@
 {
     "name": "superboum/zend-view-jade",
     "description": "Use jade template with Zend ",
+    "autoload": {
+        "psr-0": {
+            "Zend_": "."
+        }
+    },
+    "include-path": [
+        "."
+    ],
     "authors": [
         {
             "name": "Quentin Dufour",
