@@ -1,0 +1,11 @@
+{
+    "name": "superboum/zend-view-jade",
+    "description": "Use jade template with Zend ",
+    "authors": [
+        {
+            "name": "Quentin Dufour",
+            "email": "quentin@dufour.tk"
+        }
+    ],
+    "require": {}
+}
