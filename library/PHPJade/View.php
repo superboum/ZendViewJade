@@ -16,19 +16,15 @@ class PHPJade_View implements Zend_View_Interface {
   }
 
   public function setScriptPath($path) {
-    error_log("Not yet implemented set script path for jade layout");
   }
 
   public function setBasePath($path, $prefix = 'Zend_View') {
-    error_log("Not yet implemented set base path for jade layout");
   }
 
   public function addBasePath($path, $prefix = 'Zend_View') {
-    error_log("Not yet implemented add base path for jade layout");
   }
 
   public function getScriptPaths() {
-    error_log("Not yet implemented get script path for jade layout");
     return [];
   }
 
@@ -54,13 +50,11 @@ class PHPJade_View implements Zend_View_Interface {
   }
 
   public function render($name) {
-    error_log("Rendering a new template");
     $this->_jade_template = $name;
     return $this->_gen();
   }
 
   public function navigation() {
-    error_log("Not yet implemented navigation() for jade layout");
   }
 
   /*********************************
@@ -82,6 +76,10 @@ class PHPJade_View implements Zend_View_Interface {
       throw new \Exception("Security Error, try to execute a different program from Jade");
     }
     $json_data = json_encode($this->_params, JSON_HEX_QUOT|JSON_PRETTY_PRINT);
+    $error = json_last_error_msg();
+    if ($error && $error != 'No error') {
+         throw new \LogicException(sprintf("Failed to serialize locals, error: %s", $error));
+    }
     $tmpfname = tempnam(sys_get_temp_dir(), 'PP'); 
     file_put_contents($tmpfname, $json_data);
 
@@ -89,7 +87,6 @@ class PHPJade_View implements Zend_View_Interface {
     $rv = 0;
     $cmd = "{$this->_compiler_path} -P -p {$this->_jade_template} -O \"".$tmpfname."\" < {$this->_jade_template}";
     exec($cmd, $o, $rv);
-    error_log("INFO\nError code: ".$rv."\nTemplate: ".$this->_jade_template."\nTemp file: ".$tmpfname);
     return implode("\n",$o);
   }
 
