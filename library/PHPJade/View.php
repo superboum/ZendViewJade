@@ -76,7 +76,7 @@ class PHPJade_View implements Zend_View_Interface {
       throw new \Exception("Security Error, try to execute a different program from Jade");
     }
     $json_data = json_encode($this->_params, JSON_HEX_QUOT|JSON_PRETTY_PRINT);
-    $error = json_last_error_msg();
+    $error = json_last_error();
     if ($error && $error != 'No error') {
          throw new \LogicException(sprintf("Failed to serialize locals, error: %s", $error));
     }
